@@ -1,0 +1,362 @@
+.letter-opening-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 24px;
+  isolation: isolate;
+}
+
+.letter-opening-backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255, 208, 225, 0.24), transparent 36%),
+    rgba(22, 9, 23, 0.94);
+  backdrop-filter: blur(12px);
+  animation: letter-backdrop-in 500ms ease both;
+}
+
+.letter-opening-scene {
+  position: relative;
+  display: flex;
+  width: min(100%, 560px);
+  min-height: 440px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  animation: letter-scene-finish 3.9s ease-in-out both;
+}
+
+.letter-opening-kicker {
+  margin: 0 0 110px;
+  color: #f7dce8;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  line-height: 1.7;
+  animation: letter-caption-in 700ms 100ms ease both;
+}
+
+.letter-opening-envelope {
+  position: relative;
+  width: clamp(250px, 66vw, 340px);
+  height: clamp(170px, 45vw, 225px);
+  perspective: 1000px;
+  filter: drop-shadow(0 24px 36px rgba(0, 0, 0, 0.3));
+  animation: envelope-arrive 700ms cubic-bezier(0.18, 0.8, 0.25, 1.1) both;
+}
+
+.letter-opening-paper {
+  position: absolute;
+  z-index: 2;
+  inset: 8px 9% 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 19px 18px;
+  border: 1px solid rgba(161, 91, 120, 0.18);
+  border-radius: 5px 5px 2px 2px;
+  background: linear-gradient(145deg, #fffdfb, #ffeaf1);
+  box-shadow: 0 4px 16px rgba(84, 25, 53, 0.12);
+  transform: translateY(0) scaleY(0.22);
+  transform-origin: bottom center;
+  animation: letter-paper-rise 2.1s 850ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.paper-heart {
+  margin-bottom: 12px;
+  color: #d35c88;
+  font-family: Georgia, serif;
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.paper-line {
+  display: block;
+  width: 72%;
+  height: 3px;
+  margin: 5px auto;
+  border-radius: 99px;
+  background: #eac3d2;
+}
+
+.paper-line-long { width: 88%; }
+.paper-line-short { width: 49%; }
+
+.paper-signature {
+  margin-top: 10px;
+  color: #b45b7a;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.letter-envelope-pocket {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 5px;
+  background: linear-gradient(145deg, #f6b8ce, #e989ad);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.letter-envelope-pocket::before {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.24), transparent 56%);
+  content: "";
+}
+
+/* Front pocket covers only the part of the paper that is still inside the envelope. */
+.letter-envelope-front {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+.letter-envelope-front::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, #f8c8d9, #df729a);
+  clip-path: polygon(0 0, 50% 63%, 100% 0, 100% 100%, 0 100%);
+  content: "";
+}
+
+.letter-envelope-flap {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 59%;
+  border-radius: 5px 5px 0 0;
+  background: linear-gradient(135deg, #ffd9e6, #f2a7c2);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform: rotateX(0deg);
+  transform-origin: top center;
+  backface-visibility: visible;
+  animation: envelope-flap-open 1s 400ms cubic-bezier(0.35, 0.05, 0.25, 1) both;
+}
+
+.letter-envelope-seal {
+  position: absolute;
+  z-index: 5;
+  top: 44%;
+  left: 50%;
+  display: grid;
+  width: 45px;
+  height: 45px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 50%;
+  background: linear-gradient(145deg, #d94f83, #b92f68);
+  box-shadow: 0 5px 12px rgba(117, 28, 67, 0.22);
+  color: #fff4f8;
+  font-size: 1.8rem;
+  transform: translate(-50%, -50%);
+  animation: envelope-seal-fade 450ms 900ms ease both;
+}
+
+.letter-opening-caption {
+  margin: 28px 0 0;
+  color: #fff1f7;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.05rem, 3vw, 1.35rem);
+  font-style: italic;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.15);
+  animation: letter-caption-in 800ms 300ms ease both;
+}
+
+.letter-opening-sparkles span {
+  position: absolute;
+  color: #ffd7e7;
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  opacity: 0;
+  animation: letter-sparkle 1.7s ease-in-out infinite;
+}
+
+.letter-opening-sparkles span:nth-child(1) { top: 31%; left: 8%; animation-delay: 450ms; }
+.letter-opening-sparkles span:nth-child(2) { top: 21%; right: 13%; animation-delay: 700ms; }
+.letter-opening-sparkles span:nth-child(3) { right: 4%; bottom: 29%; animation-delay: 950ms; }
+.letter-opening-sparkles span:nth-child(4) { left: 13%; bottom: 23%; animation-delay: 600ms; }
+.letter-opening-sparkles span:nth-child(5) { top: 43%; right: 3%; animation-delay: 1200ms; }
+
+/* ---------------- Multilingual heart animation ---------------- */
+.love-heart-section {
+  width: 100%;
+  margin-top: 30px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(220, 143, 174, 0.25);
+  text-align: center;
+}
+
+.love-heart-eyebrow {
+  margin: 0 0 8px;
+  color: #c76b8e;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.love-heart-section h2 {
+  margin: 0 auto 10px;
+  color: #ffe7f0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.25rem, 4.5vw, 1.8rem);
+  line-height: 1.25;
+}
+
+.love-heart-description {
+  max-width: 440px;
+  margin: 0 auto 22px;
+  color: rgba(255, 235, 243, 0.78);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+/* IMPORTANT: this relative, sized box is the coordinate system for all words.
+   Without position:relative and a height/aspect-ratio, absolute words escape the heart
+   and overlap the final-page heading and description. */
+.love-heart-grid {
+  position: relative;
+  display: block;
+  width: min(100%, 520px);
+  aspect-ratio: 1.13 / 1;
+  margin: 12px auto 8px;
+  isolation: isolate;
+  overflow: visible;
+}
+
+.love-heart-position {
+  position: absolute;
+  display: block;
+  z-index: 1;
+  width: max-content;
+  max-width: 8%;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.love-heart-word {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  color: #f2a6c5;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(0.39rem, 0.9vw, 0.58rem);
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(7px) scale(0.55);
+  animation: love-word-appears 520ms cubic-bezier(0.16, 0.75, 0.23, 1.2) forwards;
+  text-shadow: 0 0 10px rgba(255, 101, 164, 0.22);
+}
+
+.love-heart-position:nth-child(3n) .love-heart-word { color: #ffd5e5; }
+.love-heart-position:nth-child(4n) .love-heart-word { color: #df83a9; }
+.love-heart-position:nth-child(7n) .love-heart-word { color: #fff0f6; }
+
+.love-heart-signoff {
+  margin: 18px 0 0;
+  color: #f2c4d7;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1rem;
+  font-style: italic;
+  opacity: 0;
+  animation: letter-caption-in 700ms 5.2s ease forwards;
+}
+
+@keyframes letter-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes envelope-arrive {
+  from { opacity: 0; transform: translateY(30px) scale(0.86) rotate(-3deg); }
+  to { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
+}
+
+@keyframes envelope-flap-open {
+  0%, 15% { transform: rotateX(0deg); z-index: 4; }
+  48% { transform: rotateX(82deg); z-index: 4; }
+  52% { transform: rotateX(98deg); z-index: 1; }
+  100% { transform: rotateX(180deg); z-index: 1; }
+}
+
+@keyframes letter-paper-rise {
+  0%, 18% { transform: translateY(0) scaleY(0.22); }
+  35% { transform: translateY(-14px) scaleY(0.3); }
+  52% { transform: translateY(-36px) scaleY(0.5); }
+  68% { transform: translateY(-60px) scaleY(0.76); }
+  85% { transform: translateY(-82px) scaleY(0.94); }
+  100% { transform: translateY(-90px) scaleY(1); }
+}
+
+@keyframes envelope-seal-fade {
+  from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  to { opacity: 0; transform: translate(-50%, -50%) scale(0.4) rotate(-20deg); }
+}
+
+@keyframes letter-caption-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes letter-sparkle {
+  0%, 100% { opacity: 0.12; transform: translateY(4px) scale(0.7) rotate(-10deg); }
+  50% { opacity: 0.9; transform: translateY(-7px) scale(1.12) rotate(10deg); }
+}
+
+@keyframes letter-scene-finish {
+  0%, 78% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.025); }
+}
+
+@keyframes love-word-appears {
+  0% { opacity: 0; transform: translateY(7px) scale(0.55); filter: blur(3px); }
+  75% { opacity: 1; transform: translateY(-1px) scale(1.12); filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@media (max-width: 600px) {
+  .letter-opening-overlay { padding: 16px; }
+  .letter-opening-scene { min-height: 390px; }
+  .letter-opening-kicker { max-width: 290px; font-size: 0.62rem; }
+  .letter-opening-caption { max-width: 270px; line-height: 1.5; }
+
+  .love-heart-section { margin-top: 24px; padding-top: 22px; }
+  .love-heart-description { font-size: 0.84rem; }
+  .love-heart-grid { width: min(100%, 460px); }
+  .love-heart-position { max-width: 8.5%; }
+  .love-heart-word { font-size: clamp(0.36rem, 1.05vw, 0.54rem); }
+  .love-heart-signoff { font-size: 0.9rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .letter-opening-backdrop,
+  .letter-opening-kicker,
+  .letter-opening-envelope,
+  .letter-opening-paper,
+  .letter-envelope-flap,
+  .letter-envelope-seal,
+  .letter-opening-caption,
+  .letter-opening-sparkles span,
+  .love-heart-word,
+  .love-heart-signoff {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+  }
+
+  .letter-opening-scene { animation-duration: 1.2s !important; }
+}
